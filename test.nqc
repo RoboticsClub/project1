@@ -1,33 +1,40 @@
 void moveForward() {
-	OnFwd(OUT_A);
-	OnFwd(OUT_C);
+        OnFwd(OUT_A);
+        OnFwd(OUT_C);
 }
 
 void moveBackward() {
-	OnRev(OUT_A);
-	OnRev(OUT_C);
+        OnRev(OUT_A);
+        OnRev(OUT_C);
 }
 
 void turnOffMotors() {
-	Off(OUT_A);
-	Off(OUT_C);
+        Off(OUT_A);
+        Off(OUT_C);
 }
 
+void circle(){
+        OnFwd(OUT_A);
+        OnRev(OUT_C);
+}
+
+
 void destroyRobot() {
-	PlaySound(4);
-	moveBackward();
-	Wait(1000);
+        PlaySound(4);
+        circle();
+        moveBackward();
+        Wait(1000);
 }
 
 task main() {
-	moveForward();
-	
-	Wait(400);
+        moveForward();
+        
+        Wait(400);
 
-	moveBackward();
+        moveBackward();
 
-	Wait(400);
+        Wait(400);
 
-	destroyRobot();
-	turnOffMotors();
+        destroyRobot();
+        turnOffMotors();
 }
