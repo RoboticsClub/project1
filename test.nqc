@@ -1,33 +1,79 @@
+/* NQC Robotics Program */
+
+// Move the robot forwards.
 void moveForward() {
 	OnFwd(OUT_A);
 	OnFwd(OUT_C);
 }
 
+// Move the robot backwards.
 void moveBackward() {
 	OnRev(OUT_A);
 	OnRev(OUT_C);
 }
 
+// Turn off motors
 void turnOffMotors() {
 	Off(OUT_A);
 	Off(OUT_C);
 }
 
-void destroyRobot() {
-	PlaySound(4);
-	moveBackward();
-	Wait(1000);
+// Sleep motor
+void sleep(int length) {
+	Wait(length);
 }
 
+// Turn the robot. The second argument is a number, 1 for left and 2 for right.
+void turn(int direction) {
+
+	if(direction == 1) {
+		// Turn left.
+		OnRev(OUT_A);
+		OnFwd(OUT_C);
+	} else if (direction == 2) {
+		// Turn right.
+		OnFwd(OUT_A);
+		OnRev(OUT_C);
+	} else {
+		// What troll passes neither 1 nor 2?
+	}
+}
+
+// The tick method is used for all computation. It is called, paused for 2 ticks (200ms) then recalled.
+void tick(int *doTick) {
+	SetUserDisplay(Timer(0), 0);
+
+	// Lets check whether or not SENSOR_2 is pressed. If it is, we have the ball. If not, lets continue.
+	if(SENSOR_2 == 1) {
+		moveForward();
+	} else {
+		turn(2);
+	}
+
+	if(Timer(0) > 10000) {
+		*doTick = 2;
+	}
+}
+
+
+// The main task is called as the program. The program should all be started from the main() method.
 task main() {
-	moveForward();
-	
-	Wait(400);
+	// Reset the timer.
+	ClearTimer(0);
 
-	moveBackward();
+	// Initialize the robot.
+	SetSensor(SENSOR_2, SENSOR_TOUCH); // Set the second sensor as a touch sensor.
 
-	Wait(400);
+	// Prep for the tick.
+	int *doTick = 1;
+	int pause = 200;
 
-	destroyRobot();
+	// This is called every 200ms + computation time.
+	while (*doTick == 1) {
+		tick(&doTick);
+		sleep(pause);
+	}
+
+	// Program end.
 	turnOffMotors();
 }
