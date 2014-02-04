@@ -1,17 +1,10 @@
 #!/bin/bash
 
-outputName="program.rcx"
-
 echo "Compiling via NQC automatically."
 
-# These are the flags we use.
-location="/dev/usb/legousbtower0"
-flags="-Lcompile.log -Ecompile.err -d -Trcx2 -S$location"
-
 # Start compiling.
-echo -n "Please enter the MAIN file: "
-read main
+read -p "Please enter the MAIN file: " main
 
-nqc $flags -O$outputName $main
+nqc -Lcompile.log -Ecompile.err -d -Trcx2 -S/dev/usb/lego0 -Oprogram.rcx $main -pgm 1 -datalog-full -near -run
 
-echo "Compiled $main to $outputName."
+echo "Compiled $main to `pwd`/program.rcx."
