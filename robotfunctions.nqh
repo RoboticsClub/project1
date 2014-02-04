@@ -1,5 +1,8 @@
 // Includes a set of instructions for the robot. Basic functions.
 
+#define LEFT_MOTOR OUT_A
+#define RIGHT_MOTOR OUT_C
+
 // move the robot forwards
 void moveForward() {
 	OnFwd(OUT_A);
@@ -28,12 +31,12 @@ void turn(int direction) {
 
 	if(direction == DIR_LEFT) {
 		// Turn left.
-		OnRev(OUT_A);
-		OnFwd(OUT_C);
+		OnRev(LEFT_MOTOR);
+		OnFwd(RIGHT_MOTOR);
 	} else if (direction == DIR_RIGHT) {
 		// Turn right.
-		OnFwd(OUT_A);
-		OnRev(OUT_C);
+		OnFwd(LEFT_MOTOR);
+		OnRev(RIGHT_MOTOR);
 	} else {
 		// What troll passes neither 1 nor 2?
 	}
