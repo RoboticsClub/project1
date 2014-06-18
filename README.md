@@ -25,3 +25,5 @@ You can either submit a pull request or be added to the repository. We follow th
 - *Must Follow Program Intentions*: The code you submit must follow the program's goal and intentions. If it is an unnecessary addition, it may or may not be added.
 
 Thank you.
+
+This is intellectual property of Brendan Ashworth and Samuel N Southard III.  Do not use without written permission by either of the above.
